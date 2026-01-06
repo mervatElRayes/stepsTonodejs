@@ -1,0 +1,400 @@
+   1- download ==>> nodejs ===>> version LTS ..... on my device
+2-  npm init -y ===>>>>>>>>> to make folder "package.json" .....  and than walk in steps the Site
+3- install ==>> Express framework && make in main-path --- file called --->>> "app.js"
+4- second step we will take codes from Hello worlds and put it into app.js_FILE ==>> to appear our link for show project in Browser
+5- install ==>> nodemon .... this administrator about any change happen in ==>> app.js ==>>>> npm i nodemon
+6- make folder in mainpath called ==>> "views" -->> for put all files.html ===>>> that in future we changed to .ejs
+7- any ERROR happend we make install like ===>>> npm i @ljharb/tsconfig  and close vsCode and opend anther
+8- If we want to suggest ===> we must add path Intellisense  in VScode "Extension"
+9- we must sure that Extension ->"Path Intellisense" ==>>>> installing in VScode
+10 - Connect project to MongoDB ===>>> should be use mongoosejs ==>> npm i mongoose
+11 - we go to mongoose and take the codes from it and put in app.js👇👇
+
+	A- const mongoose = require('     '); above of page app.js
+	B- mongoose.connect('Here LINK FROM mongodb');  ... under app.listen .. in app.js👇👇like this
+																			mongoose
+																		.connect("Link from mongodb")
+  																			.then((params) => {})
+  																			.catch((err) => {console.log(err)  });
+	C- go to mongodb and signup account to me ===>> this steps👇👇
+
+
+		a- go to mongodb.com ==>> get started ==>> make Sign up on this site ==>> complete All confirm 
+		b- Ask a lot of Questions like why you use mongodb... atc
+		c- Build a Cluster ==>> Free
+		d- connect to cluster (username   &  Password )
+		e- we Keep of our (username   &  Password )
+		t- If we want change Password ==> It exists in Database Access
+		f- click on -->> create Database User
+		m- Add mt current IP 
+		n- Finish and close
+		l- go to network Access and ==> click on ADD IP ADDRESS
+		q- Allow Access from any where
+		s- click on confirm
+		g- connect to Cluster
+		
+		
+	D- for get our Link ==>> click connect ==>>  Drivers
+	E- take link under statement  ==>>>> "view full code sample" and put it in app.js page at==>> .connect
+	F- take this code put it in .then 👇👇
+									app.listen(port, () => {
+  									console.log(`http://localhost:${port}`);
+									});
+
+
+					👇👇👇the Finale Shap of Code like this 👇👇👇
+				mongoose
+  				.connect("mongodb+srv://mohmedmervat03_db_user:aqCLkcNbaHyG6AaE@cluster0.jewhl6d.mongodb.net/all-data   appName=Cluster0")
+  				.then(() => {
+    				app.listen(port, () => {
+    				console.log(`http://localhost:${port}`);
+				});
+  				})
+  				.catch((err) => {
+    				console.log(err);
+  				});
+	G- in this stage we will run our project like this ===>>> nodemon app.js
+
+					👇👇👇  Send data to database 👇👇👇👇
+
+
+ 
+1- make post Requist -->> in html on form Attribute put ==> method="post" + action="/".
+2- input inside forme should be contente attribute called name="" && this name should be the same name into -->> Schems FILE
+3-put this code into app.js FILE ==>>> app.use(express.urlencoded({ extended: true }));
+4-   schema & Creating a model👇👇Create a folder called "models" and inside it create a file; for example articleSchema.js👇👇
+												👇👇schema FILE 👇👇
+
+									const mongoose = require("mongoose");
+									const Schema = mongoose.Schema;
+ 
+									// define the Schema (the structure of the article)
+									const articleSchema = new Schema({
+  									userNameee: String
+
+									});
+
+								// Create a model based on that schema
+								const Mydata = mongoose.model("Mydata ", articleSchema);
+
+								// export the model
+								module.exports = Mydata;
+						
+
+5- we should be Receive codes from schema in app.js FILE by this code==>>>  const     Mydata = require("./models/articleSchema");
+
+							👇👇 create post Requist in app.js FILE 👇👇👇👇
+										👇👇we will put👇this codes under mongoose.connect 
+						
+										app.post("/", (req, res) => {
+										console.log(req.body)
+  										const mydata = new Mydata(req.body);
+  										mydata.save()
+  										res.redirect("/");
+										});
+
+							👇👇Get data from database &&& Install ejs from 👇👇
+
+1 - It is not permissible Or Allowed  write codes javascript into file html So we must make Extension of file Is .ejs
+2 - make Install for ejs ===>>>> npm i ejs .... into Terminal in VS code
+3 - change Extension of files from html ==>>> to ejs and put all of them into ===>>> views FOLDER
+4 - go to app.js and put this code ===>>> app.set('view engine', 'ejs') to convert Extension file from .html TO ==>> .ejs
+
+5 -  install VS code extension: ==>>> EJS Language Support
+6 - make thinge called render  like this👇👇 we go to app.get & put it 👇👇
+									
+										app.get("/", (req, res) => {
+			we can by this code transfer data to anthore Page👉 res.render("index", {mytitle: "Mervatcooo"});
+										});
+
+									👇👇to    data in app.js FILE 👇👇
+								
+										app.get("/", (req, res) => {
+  										// resulte Is ===>> array of objects
+  										Mydata.find()
+    										.then((result) => {
+       									res.render("index", {title: "Mervat HOME", arr: result});
+    										})
+    										.catch((err) => {
+      									console.log(err);
+    										});
+										});
+
+									👇👇to appear data on our Browser by this codes👇👇
+
+					we will go to "index.ejs"  FILE ==> for to implement OR to execute     codes & make this👇
+
+						a- <title><%= title %></title>
+						b- <%= arr[0].userNameee %>
+
+
+				👇👇If I don't know Number of array-Element we will use this code when i need last Element👇👇
+							<%= arr.at(-1).userNameee %>
+						
+
+12-we will prepear the folder called public for put inside it  static files like(css, javascript, bootstrap,img)
+
+13- and  in app.js file put this code👉👉 app.use(express.static('public'))
+14- To make Auto refresh == >>> open new terminal and make install like this  ==>>> npm i livereload connect-livereload
+15- in app.js put this codes👇👇
+
+ 
+					const path = require("path");
+					const livereload = require("livereload");
+					const liveReloadServer = livereload.createServer();
+					liveReloadServer.watch(path.join(__dirname, 'public'));
+ 
+ 
+					const connectLivereload = require("connect-livereload");
+					app.use(connectLivereload());
+ 
+					liveReloadServer.server.once("connection", () => {
+  					setTimeout(() => {
+    					liveReloadServer.refresh("/");
+  					}, 100);
+					});
+
+
+16- in package.json FILE put Or Replace these codes👇👇
+									
+												"scripts": {
+  												"start": "node app.js",
+  												"watch": "nodemon --ext *"
+												} 
+
+
+
+17- in package.json FILE ===>>> in main replace index.js==>>>  by app.js												
+
+18- HERE We run Our project by ==>>> npm run watch==>> (run watch make auto refresh) .... instead of (nodemon app.js)
+19- add Extension liveReload in google Chrom
+						
+							👇👉In New We  will cancel some Things 👈👇 
+
+
+
+A- delete from app.js ==>> delete {title: "Mervat HOME", arr: result} from render
+B- I will start to make render for all pages like add, edit,view ...atc👇👇
+
+								app.get("/", (req, res) => {
+  								res.render("index", {});
+								});
+
+										
+								app.get("/user/add.html", (req, res) => {
+  								res.render("user/add");
+								});
+							
+								app.get("/user/view.html", (req, res) => {
+  								res.render("user/view");
+								  });
+
+
+C- delete code post from app.js ==>>>> finally
+D- after we prepair Our Files  make folder called "componenets" and put inside it files like navbar, sidebar, dark-light and in all page make include to recall navbar...atc like this👇👇👉in index page👉👉		
+ 					<%- include('./Components/navbar.ejs') %>
+																									👉in Subpages like add, view	👉👉	
+				 	 <%- include('../Components/navbar.ejs') %>	
+
+										
+
+							👇In New How to store or send data in dataBase👇
+      
+1 = into form in add.ejs ==>> put method + action like this==>> <form   method="post"    action="/user/add.html">
+2 = in app.js put this code ==>>> app.use(express.urlencoded({ extended: true }));
+3 = Defining schema & Creating a model 👆👆👆
+						👇👇schema FILE 👇👇
+
+								const mongoose = require("mongoose");
+								const Schema = mongoose.Schema;
+
+								// define the Schema (the structure of the article)
+								const userSchema = new Schema({
+
+								firstName: String,
+								lastName: String,
+								email: String,
+								phoneNumber: String,
+								age: Number,
+								country: String,
+								gender: String,
+								address: String,
+								});
+
+								// Create a model based on that schema
+								const User = mongoose.model("customer", userSchema);
+
+								// export the model
+								module.exports = User	
+								
+				👇👇We will go to app.js to make post Requist FOR send data to dataBase👇👇
+						app.post("/user/add.html", (req, res) => {
+ 					        const user = new User(req.body);
+
+  						user.save().then(() => {
+     						 res.redirect("/user/add.html")
+  						}).catch((err) => {
+   						 console.log(err);
+  						})
+						});
+					👇👇How To get data from dataBase👇👇
+
+					// get data FROM ==>>> databise-Site
+					app.get("/", (req, res) => {
+ 					 // result ===>> array of Objects
+  					User.find()
+    					.then((result) => {
+     					 res.render("index", { arr: result });
+    					})
+    					.catch((err) => {
+      					console.log(err);
+    					});
+ 
+					});
+
+			👇👇Execute the way for get data from dataBase 👇👇
+
+a- go to index-page and leave "thead" ==>> and we make "tr" just one ==>> 👇thead
+   									 <thead>
+           								     <tr>
+              									<th scope="col">#</th>
+             									 <th scope="col">Full Name</th>
+             									 <th scope="col">Gender</th>
+              									 <th scope="col">Country</th>
+             									  <th scope="col">Age</th>
+             									 <th scope="col">Last updated</th>
+             									 <th scope="col">Action</th>
+           								     </tr>
+         								  </thead>
+b- "tr" ==>>> take one just one ..  inside function forEach by ejs==>> like this👇👇
+   <% arr.forEach((item, index) => { %>
+            <tr>
+              <th scope="row"><%= index + 1 %></th>
+              <td> <%= item.firstName %> <%= item.lastName %> </td>
+              <td> <%= item.gender %></td>
+              <td> <%= item.country %></td>
+              <td> <%= item.age %></td>
+              <td>1 days ago</td>
+              <td>
+                <a
+                  data-bs-toggle="tooltip"
+                  data-bs-title="View details"
+                  data-bs-placement="top"
+                  class="btn btn-primary btn-sm"
+                  href="./user/view.html"
+                  ><i class="bi bi-eye"></i
+                ></a>
+
+                <a
+                  data-bs-toggle="tooltip"
+                  data-bs-title="Edit user"
+                  data-bs-placement="top"
+                  class="btn btn-primary btn-sm"
+                  href="./user/edit.html"
+                >
+                  <i class="bi bi-pencil"></i>
+                </a>
+                <button
+                  data-bs-toggle="tooltip"
+                  data-bs-title="Delete user"
+                  data-bs-placement="top"
+                  class="btn btn-danger btn-sm"
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+            <% }) %>
+*********************************************************************************************************************************
+					👇👇Organize view PAGE(it organize in index, app PAGE) 👇👇
+1- we should be use Id-->> to Each element 
+2- we must go to index.ejs==> and than go to ==>>> href into this page that special of view it was -->>href="./user/view.html" ==> it 	become ==>>> href="./user/<%= item._id %>"
+
+3-In app.js PAGE ===>>👇
+		app.get("/user/:id", (req, res) => {
+  		// result ===>> is object
+  		User.findById(req.params.id)
+  		.then((result) => {
+     		  res.render("user/view", {obj: result});
+  		}).catch((err) => {
+    		console.log(err);
+  		})
+ 
+		});
+
+4- in view -->> file we make in firstname, lastname, age, email ...atc ==>> make like this👇👇
+      	   <tr>
+              <th scope="row">Email</th>
+              <td><%= obj.email %></td>
+            </tr>
+
+            <tr>
+              <th scope="row">Gender</th>
+              <td><%= obj.gender %></td>
+            </tr>
+5- very very Important advice recommend ==>> ترتيب الأكواد مهم جداً فى ملف app.js
+	* SHOULD BE TAKE THIS👇PUT IT AT THE END👇👇 
+		app.get("/user/:id", (req, res) => {
+  		// result ===>> is object
+ 	        User.findById(req.params.id)
+  		.then((result) => {
+    		 res.render("user/view", {obj: result});
+  		}).catch((err) => {
+    		console.log(err);
+  		})
+ 
+		}); 
+
+
+6- Organize Date👇 called "updatedAt & createdAt"👇👇👇
+		A- We Will go to Schema file.. and put this code =>{ timestamps: true }<= like this👇👇
+
+								const userSchema = new Schema({
+
+								firstName: String,
+								lastName: String,
+								email: String,
+								}, { timestamps: true });
+		B- Go to index.ejs put this code👇👇
+					 <td> <%= item.createdAt %></td>
+              				 <td> <%= item.updatedAt %></td>
+		C- we use moment library ==>> like this ==>> npm i moment
+		D- go to Documentation ==>> Node.js.. and than take ==>> var moment = require('moment'); and put it in app.js FILE
+		E- use this code==>>  moment().format(); inside index.ejs ... Like ==>> <td> <%= moment(item.updatedAt).format(); %></td>
+								
+		F- will be happen Error because should be in app.js FILE ==>> app.get must put the {moment : moment} like this 👇👇👇
+									 res.render("index", { arr: result, moment: moment });
+		G- for imporve in date to appear nice... go in google to momentjs.com ===>>> in same page select on Format we need👇👇
+						1- we will take this code "MMM Do YY" and put it like this👇👇
+						   <td> <%= moment(item.updatedAt).format("MMM Do YY");  %></td>
+						2- there are Another shape or formula we can select on Relative Time like this ==>> .fromNow()👇👇
+												<td> <%= moment(item.updatedAt).fromNow();  %></td>
+												<td> <%= moment(item.createdAt).fromNow();  %></td>
+						** to appear page for example "view" .. In Our Link 
+							*- go to ==>> View details Into index.ejs File and Edite the link like this👇👇
+														href="/view/<%= item._id %>"
+							*- go to ==>> app.js file and Edite section view Like This 👇👇 
+												app.get("/view/:id", (req, res) => {
+  												// result ===>> is object
+  												User.findById(req.params.id)
+  												.then((result) => {
+     												res.render("user/view", {obj: result , moment: moment});
+  												}).catch((err) => {
+    												console.log(err);
+  												})
+ 
+												});
+							
+								👇👇HOW TO DELETE DATA FROM DATABASE 👇👇
+
+
+
+
+								
+
+
+
+							
+             
+
+
