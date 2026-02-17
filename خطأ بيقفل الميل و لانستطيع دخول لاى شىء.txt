@@ -1,0 +1,14 @@
+Enable multi-factor authentication (MFA)
+و تحتها على طول 
+Multi-factor authentication (MFA), also called two-step verification (2SV),
+ is now required for users. You must enable MFA to gain access to Firebase.
+
+و تحتها على طول زرار مكتوب عليه  👇👇
+Turn on 2sv
+  						👇👇👇الحــــــــــــــــــــــــــــــــــــــــــــــــــــل👇👇👇
+
+1-    نضغط على الثلاث نقط اللى على اليمين فى صفحة كروم اللى احنا عاوزين نحل مشكلتها     
+
+2- نختار new incognito window 
+3- نكتب فوق خالص   gmail
+4- google نعمل الايميل و الباسورد و نختار     
