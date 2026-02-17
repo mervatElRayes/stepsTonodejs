@@ -1,0 +1,134 @@
+				👇👇Organize Linkes of view                                            👇👇
+
+
+A- in index.ejs-FILE change the path of View details orgnize the href Like this-->>href="/view/<%= item._id  %>"
+B- in app.jsFILE  change like this -->> app.get("/view/:id", (req, res)
+C- in index.ejs-FILE change the path of Edit user orgnize the href Like this-->>href="/edit/<%= item._id  %>"
+D- in app.jsFILE  change like this -->> app.get("/edit/:id", (req, res)
+
+					👇👇 Delete Request To delete Data From Database👇👇
+
+1- go to basic site ==>> https://www.npmjs.com/package/method-override ==>>> make install ==>>npm i method-override
+2- down in app.js page take codes 👇👇
+				var methodOverride = require('method-override')
+				app.use(methodOverride('_method'))
+3- in edit.ejs page we make form and put BTN Delete inside this form and in this form put method post 
+    A- the value of method is get Or Post ---- There is no other way ==>> So we put DELETE Intio Attribute -->> "action"  Like this👇👇
+										      <form action="/edit/<%= item._id %>?_method=DELETE" method="post">
+               										   <button type="submit" class="btn btn-danger">
+                 										 Delete
+                									   </button>
+          									      </form>
+   B-in app.js FILE  make section to delete 👇👇👇
+
+						//Delete Request--- BTN-delete in Action inside table
+
+						app.delete("/edit/:id", (req, res) => {
+  							User.findByIdAndDelete(req.params.id)
+    						.then(() => {res.redirect("/");})
+    						.catch((err) => {console.log(err);});
+						});
+
+
+
+4- we need All put statment if the table empty... and if table content data will be show this data
+
+	A- put if condition above table to show statment called there are No Data yet like this👇
+
+										
+      							  <% if (arr.length === 0) { %>
+       							 <h1 style="text-align: center; margin-top: 4rem;"> No Data available</h1>
+       							  <% } %>
+	B- put if condition under first if condition to apear we should be put table if we have Data like this👇
+
+						    <% if ( arr.length > 0) { %>
+           						<table
+          						style="width: 99%"
+          						class="text-center mx-auto table mt-5 table-striped table-bordered"
+       							 >
+         						 <thead>
+							 </thead>
+          						 <tbody>
+     							 </tbody>
+       							 </table>
+      							 <% } %>
+						👇👇we write in google ==>> array-of-country-names 👇👇
+A- make ejs CODE and inside this code put the Array of name_country ==>>> like this👇👇
+
+							  <select name="country" id="inputCountry" class="form-select">
+                					  <option selected hidden disabled>Choose here ...</option>
+							var country_list = ["Egypt","Afghanistan","Albania","Algeria","Andorra"]
+B- make forEach to loop on names of Country .. All this codes in add.ejs FILE like this 👇👇
+
+							 <% country_list.forEach(item => { %>
+                 					<option> <%= item %></option>
+               						 <% }) %>
+							 </select>
+C- Same this Steps make it into Edite.ejs  &&  add.ejs put Attribut called value ==>> value="<%= obj.age %>" ...and firstName, telephonNmber,...atc
+
+D-In place of Gender make ==>>   <option <%= "Male" === obj.gender ? "selected" : null %> >Male</option>
+                		 <option <%= "Female" === obj.gender ? "selected" : null %> >Female</option>
+
+
+E- Organize Id In edite.ejs FILE ===>>> <p class="me-md-5"> <span class="fw-medium fs-6">Id :</span> <%= obj._id %></p>
+
+						👇👇Organize Search_Input into Our Project 👇👇
+A- this All status in spacify Operator Sign when we make Search 👇👇
+
+$eq: Matches values equal to a specified value.
+$gt: Matches values greater than a specified value.
+$gte: Matches values greater than or equal to a specified value.
+$in: Matches any value in a specified array.
+$lt: Matches values less than a specified value.
+$lte: Matches values less than or equal to a specified value.
+$ne: Matches all values not equal to a specified value.
+$nin: Matches none of the values in a specified array.
+
+								👇👇express.Router👇👇
+							Route Folder making to Orgnize Our Project
+
+
+
+1- in Express Site ==>> go to Guide ==>> Routing ==>>> in down of this page ==>> express.Router
+		A- make folder called routes==>> and inside this foder make file called Allroutes.js
+		B- take All Codes under express.Router copy and put it in Allroutes.js FILE
+		C- In Allroutes.js we put all Routes in my Project like 👉👉 app.get + post + put+ Delete All of them from app.js
+		D- In app.js we put ==>> const birds = require('./birds') ==>> changed like this👉const allRoutes = require('./routes/Allroutes')
+		E- In last Or Down app.js FILE Put ==>> app.use('/birds', birds) ==>> changed like this
+		F- we should repair path of customerSchema FILE ==>> const User = require("../models/customerSchema");
+		G- we should use router rather than app in All our Requests into Allroutes.js FILE ==>> replace app  -->> router
+
+		 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+									
+											
+
+
+					
