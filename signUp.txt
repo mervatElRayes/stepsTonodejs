@@ -1,0 +1,63 @@
+1- for signUp we must send data to database 
+A- we must go to input ==>> (inside my form and add attribute called name="username")===>> username that we storage it into database that existing in authUser.js FILE in Moodel folder
+B- we must go to input ==>> (inside my form and add attribute called email="email")===>> username that we storage it into database  that existing in authUser.js FILE in Moodel folder
+C- we must go to input ==>> (inside my form and add attribute called name="password")===>> username that we storage it into database  that existing in authUser.js FILE in Moodel folder
+D- in form 👇👇into signup FILE into auth FOPLDER inside views Folder
+        <form action="/signup" method="post">
+E- put this code in app.js ==>> app.use(express.urlencoded({ extended: true })); above this file
+F- create my Model into models folder that content of schema file we will make another file called authUser.js 👇👇
+										const mongoose = require("mongoose");
+										const Schema = mongoose.Schema;
+ 
+										// define the Schema (the structure of the article)
+										const authUserSchema = new Schema({
+										username: String,
+										email: String,
+										password: String
+										});
+										// Create a model based on that schema
+										const AuthUser = mongoose.model("User", authUserSchema);
+										// export the model
+										module.exports = AuthUser;
+G-we must save our data inside database in app.js using create()
+
+			1- go to Allroutes.js into routes-FOLDER to prepare  my Model like this 👉 const AuthUser = require("../models/authUser")
+			2- go to Allroutes.js into routes-FOLDER to make post Request Or Create👇👇
+										router.post("/signup", async (req, res) => {
+										const result = await AuthUser.create(req.body)
+										try {
+   											  res.redirect("/")
+										} catch (error) {
+   											console.log(error); 
+										}
+   											 console.log(result);
+
+										});
+
+							we use(async + await) && use (try+catch) rather than "then+catch"👆👆👆
+H- how make privacy to customer password.. So that no one can hack the account ===>> this called ==>> "Hashing Passwords"👇👇
+		1- make install ==>>> npm i bcrypt <<=== this install not working we will use another code instead by "npm i bcryptjs" <<== this is perfect code
+		2- and than make import above authUser.js PAGE ==>>> const bcryptjs = require('bcryptjs');
+		3- in schema file (authUser.js) that specialize of username,password,email put this codes👇👇
+		
+										
+										authUserSchema.pre("save", async function(next) {
+										const salt = await bcrypt.genSalt();
+
+  										this.password = await bcrypt.hash(this.password, salt);
+ 										return(next)
+										});
+
+               
+
+
+
+
+
+
+
+
+
+
+
+
