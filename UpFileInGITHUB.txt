@@ -1,0 +1,12 @@
+				👇👇How Upload Project on GitHub 👇👇
+				========================================
+
+
+1- click on BTN ==>> New
+2- choose Public
+3- select on README
+4- click in Create Repository
+
+5- in BTN==>> ADD FILE ==>> choose upload Files👇👇
+6- Drag ALL Files and Folder 
+7- commit changes
